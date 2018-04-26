@@ -1,0 +1,17 @@
+server:
+  context-path: /
+  port: 6060
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_film
+    username: root
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  thymeleaf:
+    cache: false
+
+imageFilePath: E://githubSample/Film/src/main/webapp/static/filmImage/

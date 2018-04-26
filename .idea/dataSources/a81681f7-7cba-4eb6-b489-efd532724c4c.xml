@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="db_film@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.4">
+    <root id="1"/>
+    <schema id="2" parent="1" name="db_film">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="db_activiti"/>
+    <schema id="4" parent="1" name="db_blog"/>
+    <schema id="5" parent="1" name="db_blog3"/>
+    <schema id="6" parent="1" name="db_book"/>
+    <schema id="7" parent="1" name="db_cms"/>
+    <schema id="8" parent="1" name="db_crm"/>
+    <schema id="9" parent="1" name="db_sample"/>
+    <schema id="10" parent="1" name="db_shiro"/>
+    <schema id="11" parent="1" name="db_ssm"/>
+    <schema id="12" parent="1" name="forest_blog"/>
+    <schema id="13" parent="1" name="information_schema"/>
+    <schema id="14" parent="1" name="mysql"/>
+    <schema id="15" parent="1" name="performance_schema"/>
+    <schema id="16" parent="1" name="sampledb"/>
+    <schema id="17" parent="1" name="test"/>
+  </database-model>
+</dataSource>
