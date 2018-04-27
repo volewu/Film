@@ -1,5 +1,7 @@
 package com.vole.film.controller.admin;
 
+import com.vole.film.entity.Film;
+import com.vole.film.service.FilmService;
 import com.vole.film.util.DateUtil;
 
 import org.apache.commons.io.FileUtils;
@@ -10,6 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 /**
  * 编写者： vole
@@ -20,8 +27,27 @@ import java.io.File;
 @RequestMapping("/admin/film")
 public class FilmAdminController {
 
+    @Resource
+    private FilmService filmService;
+
     @Value("${imageFilePath}")
     private String imageFilePath;
+
+    @RequestMapping("/save")
+    public Map<String, Object> save(Film film, @RequestParam("imageFile") MultipartFile file) throws Exception {
+        Map<String, Object> result = new HashMap<>();
+        if(!file.isEmpty()){
+            String fileName=file.getOriginalFilename(); // 获取文件名
+            String suffixName=fileName.substring(fileName.lastIndexOf(".")); // 获取文件的后缀
+            String newFileName=DateUtil.getCurrentDateStr()+suffixName;
+            FileUtils.copyInputStreamToFile(file.getInputStream(), new File(imageFilePath+newFileName));
+            film.setImageName(newFileName);
+        }
+        film.setPublishDate(new Date());
+        filmService.save(film);
+        result.put("success",true);
+        return result;
+    }
 
     @RequestMapping("/ckeditorUpload")
     public String ckeditorUpload(@RequestParam("upload") MultipartFile file
@@ -39,4 +65,6 @@ public class FilmAdminController {
 
         return sb.toString();
     }
+
+
 }

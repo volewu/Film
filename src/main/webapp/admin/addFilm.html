@@ -10,8 +10,42 @@
     <script type="text/javascript" src="/static/jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
     <script type="text/javascript"
             src="/static/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
-
     <script type="text/javascript" src="/static/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+
+        function submitData() {
+            $("#fm").form("submit", {
+                url: "/admin/film/save",
+                onSubmit: function () {
+                    var content = CKEDITOR.instances.content.getData();
+                    if (content == "") {
+                        $.messager.alert("系统提示", "内容不能为空！");
+                        return false;
+                    }
+                    return $(this).form("validate");
+                },
+                success: function (result) {
+                    var result = eval('(' + result + ')');
+                    if (result.success) {
+                        $.messager.alert("系统提示", "保存成功！");
+                        resetValue();
+                    } else {
+                        $.messager.alert("系统提示", "保存失败！");
+                    }
+                }
+            });
+        }
+
+        function resetValue() {
+            $("#name").val("");
+            $("#title").val("");
+            $("#imageFile").val("");
+            $("#yes").prop("checked", true);
+            CKEDITOR.instances.content.setData("");
+        }
+
+
+    </script>
 </head>
 <body style="margin: 10px">
 <div id="p" class="easyui-panel" title="添加电影" style="padding: 10px">
