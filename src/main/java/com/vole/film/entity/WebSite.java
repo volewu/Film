@@ -9,7 +9,7 @@ import javax.persistence.Table;
 /**
  * 编写者： vole
  * Time： 2018/4/26.08:47
- * 内容：电影网站实体类
+ * 内容：收录电影网址实体类
  */
 @Entity
 @Table(name = "t_webSite")

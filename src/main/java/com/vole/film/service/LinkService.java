@@ -13,7 +13,6 @@ public interface LinkService {
 
     /**
      * 分页查询友情链接
-     *
      * @param page
      * @param pageSize
      * @return
@@ -22,10 +21,19 @@ public interface LinkService {
 
     /**
      * 获取总记录数
-     *
      * @return
      */
     Long getCount();
 
+    /**
+     * 添加或者修改友情链接
+     * @param link
+     */
+    void save(Link link);
 
+    /**
+     * 根据 id 删除友情链接
+     * @param id
+     */
+    void delete(Integer id);
 }

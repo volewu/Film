@@ -36,4 +36,22 @@ public class LinkAdminController {
         return result;
     }
 
+    @RequestMapping("/save")
+    public Map<String, Object> save(Link link) throws Exception {
+        Map<String, Object> result = new HashMap<>();
+        linkService.save(link);
+        result.put("success", true);
+        return result;
+    }
+
+    @RequestMapping("/delete")
+    public Map<String, Object> delete(@RequestParam(value = "ids") String ids) throws Exception {
+        String[] idsStr = ids.split(",");
+        Map<String, Object> result = new HashMap<>();
+        for (String anIdsStr : idsStr) {
+            linkService.delete(Integer.parseInt(anIdsStr));
+        }
+        result.put("success", true);
+        return result;
+    }
 }

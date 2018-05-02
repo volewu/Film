@@ -1,5 +1,7 @@
 package com.vole.film.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -87,6 +89,7 @@ public class Film {
         this.hot = hot;
     }
 
+    @JsonSerialize(using = CustomDateTimeSerializer.class)
     public Date getPublishDate() {
         return publishDate;
     }

@@ -35,6 +35,12 @@
             }
         }
 
+        function closeTab(title) {
+            if ($("#tabs").tabs('exists', title)) {
+                $("#tabs").tabs('close', title);
+            }
+        }
+
         /*]]>*/
 
     </script>
