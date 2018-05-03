@@ -1,5 +1,8 @@
 package com.vole.film.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.vole.film.util.CustomDateSerializer;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,7 +16,7 @@ import javax.persistence.Table;
 /**
  * 编写者： vole
  * Time： 2018/4/26.08:49
- * 内容：网站动态更新电影信息实体
+ * 内容：电影动态信息实体
  */
 @Entity
 @Table(name = "t_info")
@@ -79,6 +82,7 @@ public class WebSiteInfo {
         this.url = url;
     }
 
+    @JsonSerialize(using = CustomDateSerializer.class)
     public Date getPublishDate() {
         return publishDate;
     }

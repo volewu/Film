@@ -1,7 +1,9 @@
 package com.vole.film.controller.admin;
 
 import com.vole.film.entity.WebSite;
+import com.vole.film.service.WebSiteInfoService;
 import com.vole.film.service.WebSiteService;
+import com.vole.film.util.StringUtil;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +26,9 @@ public class WebSiteAdminController {
 
     @Resource
     private WebSiteService webSiteService;
+
+    @Resource
+    private WebSiteInfoService webSiteInfoService;
 
     @RequestMapping("/list")
     public Map<String, Object> list(WebSite webSite, @RequestParam(value = "page", required = false) Integer page
@@ -49,11 +54,37 @@ public class WebSiteAdminController {
         System.out.println(ids);
         String[] idsStr = ids.split(",");
         Map<String, Object> result = new HashMap<>();
+        boolean flag = true;
         for (String anIdsStr : idsStr) {
-            webSiteService.delete(Integer.parseInt(anIdsStr));
+            Integer webSiteId = Integer.parseInt(anIdsStr);
+            if (webSiteInfoService.getByWebSiteId(webSiteId).size() > 0)
+                flag = false;
+            else
+                webSiteService.delete(webSiteId);
+
         }
-        result.put("success", true);
+        if (flag) {
+            result.put("success", true);
+        } else {
+            result.put("success", false);
+            result.put("errorInfo", "电影动态信息中存在电影信息，不能删除！");
+        }
         return result;
+    }
+    /**
+     * 下拉框模糊查询用到
+     * @param q
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/comboList")
+    public List<WebSite> comboList(String q)throws Exception{
+        if(StringUtil.isEmpty(q)){
+            return null;
+        }
+        WebSite webSite=new WebSite();
+        webSite.setUrl(q);
+        return webSiteService.list(webSite, 0, 30); // 最多查询30条记录
     }
 
 }

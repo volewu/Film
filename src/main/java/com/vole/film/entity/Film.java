@@ -1,6 +1,7 @@
 package com.vole.film.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.vole.film.util.CustomDateTimeSerializer;
 
 import java.util.Date;
 

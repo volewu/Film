@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>电影动态信息管理页面</title>
+    <link rel="stylesheet" type="text/css" href="/static/jquery-easyui-1.3.3/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/jquery-easyui-1.3.3/themes/icon.css" />
+    <script type="text/javascript" src="/static/jquery-easyui-1.3.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/static/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript">
+
+        var url;
+
+        function formatFilmName(val,row){
+            return row.film.name;
+        }
+
+        function formatWebSiteName(val,row){
+            return row.webSite.name+"&nbsp;("+row.webSite.url+")";
+        }
+
+        function searcInfo(){
+            $("#dg").datagrid("load",{
+                "info":$("#s_info").val()
+            });
+        }
+
+        function openWebSiteInfoAddDialog(){
+            $("#dlg").dialog("open").dialog("setTitle","添加网站动态信息");
+            url="/admin/webSiteInfo/save";
+        }
+
+        function deleteWebSiteInfo(){
+            var selectedRows=$("#dg").datagrid("getSelections");
+            if(selectedRows.length==0){
+                $.messager.alert("系统提示","请选择要删除的数据！");
+                return;
+            }
+            var strIds=[];
+            for(var i=0;i<selectedRows.length;i++){
+                strIds.push(selectedRows[i].id);
+            }
+            var ids=strIds.join(",");
+            $.messager.confirm("系统提示","您确定要删除这<font color=red>"+selectedRows.length+"</font>条数据吗？",function(r){
+                if(r){
+                    $.post("/admin/webSiteInfo/delete",{ids:ids},function(result){
+                        if(result.success){
+                            $.messager.alert("系统提示","数据已成功删除！");
+                            $("#dg").datagrid("reload");
+                        }else{
+                            $.messager.alert("系统提示","数据删除失败，请联系管理员！");
+                        }
+                    },"json");
+                }
+            });
+        }
+
+        function saveWebSiteInfo(){
+            $("#fm").form("submit",{
+                url:url,
+                onSubmit:function(){
+                    return $(this).form("validate");
+                },
+                success:function(result){
+                    var result=eval('('+result+')');
+                    if(result.success){
+                        $.messager.alert("系统提示","保存成功！");
+                        resetValue();
+                        $("#dlg").dialog("close");
+                        $("#dg").datagrid("reload");
+                    }
+                }
+            });
+        }
+
+        function closeWebSiteInfoDialog(){
+            resetValue();
+            $("#dlg").dialog("close");
+        }
+
+        function resetValue(){
+            $("#film").combobox("setValue","");
+            $("#webSite").combobox("setValue","");
+            $("#info").val("");
+            $("#url").val("");
+        }
+
+        $(document).ready(function(){
+
+            $('#film').combobox({
+                mode:'remote',
+                url:'/admin/film/comboList',
+                valueField:'id',
+                textField:'name',
+                delay:100
+            });
+
+            $('#webSite').combobox({
+                mode:'remote',
+                url:'/admin/webSite/comboList',
+                valueField:'id',
+                textField:'url',
+                delay:100
+            });
+
+        });
+
+    </script>
+</head>
+<body style="margin: 1px">
+<table id="dg" title="电影动态信息管理" class="easyui-datagrid"
+       fitColumns="true" pagination="true" rownumbers="true"
+       url="/admin/webSiteInfo/list" fit="true" toolbar="#tb">
+    <thead>
+    <tr>
+        <th field="cb" checkbox="true" align="center"></th>
+        <th field="id" width="40" align="center">编号</th>
+        <th field="filmName" width="100" align="center" formatter="formatFilmName">电影名称</th>
+        <th field="webSiteName" width="200" align="center" formatter="formatWebSiteName">网站名称</th>
+        <th field="info" width="200" align="center">动态信息</th>
+        <th field="url" width="250" align="center">具体地址</th>
+        <th field="publishDate" width="80" align="center">发布日期</th>
+    </tr>
+    </thead>
+</table>
+<div id="tb">
+    <div>
+        <a href="javascript:openWebSiteInfoAddDialog()" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
+        <a href="javascript:deleteWebSiteInfo()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+    </div>
+    <div>
+        &nbsp;电影动态信息：&nbsp;<input type="text" id="s_info" size="20" onkeydown="if(event.keyCode==13) searcInfo()"/>
+        <a href="javascript:searcInfo()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>
+    </div>
+</div>
+
+<div id="dlg" class="easyui-dialog" style="width: 500px;height: 230px;padding: 10px 20px"
+     closed="true" buttons="#dlg-buttons">
+    <form id="fm" method="post">
+        <table cellspacing="8px">
+            <tr>
+                <td>电影名称：</td>
+                <td>
+                    <input type="text" id="film" name="film.id" size="24" maxlength="50" class="easyui-combobox" data-options="required:true,panelHeight:'auto'"/>
+                </td>
+            </tr>
+            <tr>
+                <td>网站网址：</td>
+                <td>
+                    <input type="text" id="webSite" name="webSite.id" size="24" maxlength="50" class="easyui-combobox" data-options="required:true,panelHeight:'auto'"/>
+                </td>
+            </tr>
+            <tr>
+                <td>动态信息：</td>
+                <td>
+                    <input type="text" id="info" name="info" class="easyui-validatebox" required="true" style="width: 200px"/>
+                </td>
+            </tr>
+            <tr>
+                <td>详细网址：</td>
+                <td>
+                    <input type="text" id="url" name="url" class="easyui-validatebox" validtype="url" required="true" style="width: 300px"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div id="dlg-buttons">
+    <a href="javascript:saveWebSiteInfo()" class="easyui-linkbutton" iconCls="icon-ok" >保存</a>
+    <a href="javascript:closeWebSiteInfoDialog()" class="easyui-linkbutton" iconCls="icon-cancel" >关闭</a>
+</div>
+
+</body>
+</html>

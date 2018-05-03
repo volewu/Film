@@ -1,4 +1,4 @@
-package com.vole.film.entity;
+package com.vole.film.util;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;

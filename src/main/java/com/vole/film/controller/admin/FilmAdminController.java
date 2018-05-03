@@ -2,7 +2,9 @@ package com.vole.film.controller.admin;
 
 import com.vole.film.entity.Film;
 import com.vole.film.service.FilmService;
+import com.vole.film.service.WebSiteInfoService;
 import com.vole.film.util.DateUtil;
+import com.vole.film.util.StringUtil;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +32,9 @@ public class FilmAdminController {
 
     @Resource
     private FilmService filmService;
+
+    @Resource
+    private WebSiteInfoService webSiteInfoService;
 
     @Value("${imageFilePath}")
     private String imageFilePath;
@@ -81,17 +86,42 @@ public class FilmAdminController {
     public Map<String, Object> delete(@RequestParam(value = "ids") String ids) throws Exception {
         String[] idsStr = ids.split(",");
         Map<String, Object> result = new HashMap<>();
+        boolean flag = true;
         for (String anIdsStr : idsStr) {
-            filmService.delete(Integer.parseInt(anIdsStr));
+            Integer filmId = Integer.parseInt(anIdsStr);
+            if (webSiteInfoService.getByFilmId(filmId).size() > 0)
+                flag = false;
+            else
+                filmService.delete(filmId);
         }
-        result.put("success", true);
-        System.out.println();
+        if (flag) {
+            result.put("success", true);
+        } else {
+            result.put("success", false);
+            result.put("errorInfo", "电影动态信息中存在电影信息，不能删除！");
+        }
         return result;
     }
 
     @RequestMapping("findById")
     public Film findById(Integer id) throws Exception {
         return filmService.findById(id);
+    }
+
+    /**
+     * 下拉框模糊查询用到
+     * @param q
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/comboList")
+    public List<Film> comboList(String q)throws Exception{
+        if(StringUtil.isEmpty(q)){
+            return null;
+        }
+        Film film=new Film();
+        film.setName(q);
+        return filmService.list(film, 0, 30); // 最多查询30条记录
     }
 
 }

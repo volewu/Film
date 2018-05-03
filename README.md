@@ -14,4 +14,13 @@ th:text="${#httpServletRequest.remoteUser}"
 thymeleaf 中不扫描该注释中的代码
 
  /*]]>*/
+
+```
+
+* jpa 中格式化时间
+```java
+@JsonSerialize(using = CustomDateTimeSerializer.class)
+public Date getPublishDate() {
+        return publishDate;
+    }
 ```

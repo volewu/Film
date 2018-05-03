@@ -14,4 +14,5 @@ spring:
   thymeleaf:
     cache: false
 
+# 图片保存的地址
 imageFilePath: E://githubSample/Film/src/main/webapp/static/filmImage/

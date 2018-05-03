@@ -50,7 +50,7 @@
                             $.messager.alert("系统提示", "数据已成功删除！");
                             $("#dg").datagrid("reload");
                         } else {
-                            $.messager.alert("系统提示", "数据删除失败，请联系管理员！");
+                            $.messager.alert("系统提示", result.errorInfo);
                         }
                     }, "json");
                 }
