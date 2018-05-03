@@ -28,6 +28,11 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
+    public List<Link> listAll() {
+        return linkRepository.findAll();
+    }
+
+    @Override
     public Long getCount() {
         return linkRepository.count();
     }

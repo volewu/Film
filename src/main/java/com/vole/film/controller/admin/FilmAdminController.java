@@ -1,6 +1,7 @@
 package com.vole.film.controller.admin;
 
 import com.vole.film.entity.Film;
+import com.vole.film.run.StartupRunner;
 import com.vole.film.service.FilmService;
 import com.vole.film.service.WebSiteInfoService;
 import com.vole.film.util.DateUtil;
@@ -36,6 +37,9 @@ public class FilmAdminController {
     @Resource
     private WebSiteInfoService webSiteInfoService;
 
+    @Resource
+    private StartupRunner startupRunner;
+
     @Value("${imageFilePath}")
     private String imageFilePath;
 
@@ -51,6 +55,7 @@ public class FilmAdminController {
         }
         film.setPublishDate(new Date());
         filmService.save(film);
+        startupRunner.loadData();
         result.put("success", true);
         return result;
     }
@@ -100,6 +105,7 @@ public class FilmAdminController {
             result.put("success", false);
             result.put("errorInfo", "电影动态信息中存在电影信息，不能删除！");
         }
+        startupRunner.loadData();
         return result;
     }
 

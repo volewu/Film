@@ -1,6 +1,7 @@
 package com.vole.film.controller.admin;
 
 import com.vole.film.entity.WebSite;
+import com.vole.film.run.StartupRunner;
 import com.vole.film.service.WebSiteInfoService;
 import com.vole.film.service.WebSiteService;
 import com.vole.film.util.StringUtil;
@@ -28,6 +29,9 @@ public class WebSiteAdminController {
     private WebSiteService webSiteService;
 
     @Resource
+    private StartupRunner startupRunner;
+
+    @Resource
     private WebSiteInfoService webSiteInfoService;
 
     @RequestMapping("/list")
@@ -45,6 +49,7 @@ public class WebSiteAdminController {
     public Map<String, Object> save(WebSite webSite) throws Exception {
         Map<String, Object> result = new HashMap<>();
         webSiteService.save(webSite);
+        startupRunner.loadData();
         result.put("success", true);
         return result;
     }
@@ -69,6 +74,7 @@ public class WebSiteAdminController {
             result.put("success", false);
             result.put("errorInfo", "电影动态信息中存在电影信息，不能删除！");
         }
+        startupRunner.loadData();
         return result;
     }
     /**

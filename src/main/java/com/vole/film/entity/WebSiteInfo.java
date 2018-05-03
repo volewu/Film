@@ -90,4 +90,16 @@ public class WebSiteInfo {
     public void setPublishDate(Date publishDate) {
         this.publishDate = publishDate;
     }
+
+    @Override
+    public String toString() {
+        return "WebSiteInfo{" +
+                "id=" + id +
+                ", film=" + film +
+                ", webSite=" + webSite +
+                ", info='" + info + '\'' +
+                ", url='" + url + '\'' +
+                ", publishDate=" + publishDate +
+                '}';
+    }
 }

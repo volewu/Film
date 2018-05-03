@@ -16,6 +16,8 @@ public class IndexController {
     public ModelAndView index(){
         ModelAndView mav = new ModelAndView();
         mav.addObject("title","首页");
+        mav.addObject("mainPage", "film/indexFilm");
+        mav.addObject("mainPageKey", "#f");
         mav.setViewName("index");
         return mav;
     }

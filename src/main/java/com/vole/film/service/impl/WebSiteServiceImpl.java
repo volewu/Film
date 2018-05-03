@@ -69,4 +69,10 @@ public class WebSiteServiceImpl implements WebSiteService {
     public void delete(Integer id) {
         webSiteRepository.delete(id);
     }
+
+    @Override
+    public List<WebSite> newestList(Integer page, Integer pageSize) {
+        Pageable pageable=new PageRequest(page, pageSize,Sort.Direction.DESC,"id");
+        return webSiteRepository.findAll(pageable).getContent();
+    }
 }

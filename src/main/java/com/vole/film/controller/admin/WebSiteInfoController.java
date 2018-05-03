@@ -1,6 +1,7 @@
 package com.vole.film.controller.admin;
 
 import com.vole.film.entity.WebSiteInfo;
+import com.vole.film.run.StartupRunner;
 import com.vole.film.service.WebSiteInfoService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,9 @@ public class WebSiteInfoController {
     @Resource
     private WebSiteInfoService webSiteInfoService;
 
+    @Resource
+    private StartupRunner startupRunner;
+
     /**
      * 分页查询电影动态信息
      * @param page
@@ -46,7 +50,7 @@ public class WebSiteInfoController {
 
     /**
      * 添加电影动态信息
-     * @param link
+     * @param webSiteInfo
      * @return
      * @throws Exception
      */
@@ -56,6 +60,7 @@ public class WebSiteInfoController {
         Map<String,Object> resultMap=new HashMap<>();
         webSiteInfoService.save(webSiteInfo);
         resultMap.put("success", true);
+        startupRunner.loadData();
         return resultMap;
     }
 
@@ -73,7 +78,7 @@ public class WebSiteInfoController {
             webSiteInfoService.delete(Integer.parseInt(anIdsStr));
         }
         resultMap.put("success", true);
-        System.out.println();
+        startupRunner.loadData();
         return resultMap;
     }
 }

@@ -20,6 +20,12 @@ public interface LinkService {
     List<Link> list(Integer page, Integer pageSize);
 
     /**
+     * 查询所有友情链接
+     * @return
+     */
+    List<Link> listAll();
+
+    /**
      * 获取总记录数
      * @return
      */

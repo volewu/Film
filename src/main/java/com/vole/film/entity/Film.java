@@ -3,6 +3,8 @@ package com.vole.film.entity;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.vole.film.util.CustomDateTimeSerializer;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -25,6 +27,7 @@ public class Film {
     @GeneratedValue
     private Integer id; //编号
 
+    @NotEmpty(message="请输入您要搜索的电影！")
     @Column(length = 200)
     private String name;//电影名称
 
@@ -97,5 +100,18 @@ public class Film {
 
     public void setPublishDate(Date publishDate) {
         this.publishDate = publishDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Film{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", imageName='" + imageName + '\'' +
+                ", hot=" + hot +
+                ", publishDate=" + publishDate +
+                '}';
     }
 }

@@ -1,6 +1,7 @@
 package com.vole.film.controller.admin;
 
 import com.vole.film.entity.Link;
+import com.vole.film.run.StartupRunner;
 import com.vole.film.service.LinkService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,9 @@ public class LinkAdminController {
     @Resource
     private LinkService linkService;
 
+    @Resource
+    private StartupRunner startupRunner;
+
     @RequestMapping("/list")
     public Map<String, Object> list(@RequestParam(value = "page", required = false) Integer page,
                                     @RequestParam(value = "rows", required = false) Integer rows) throws Exception {
@@ -41,6 +45,7 @@ public class LinkAdminController {
         Map<String, Object> result = new HashMap<>();
         linkService.save(link);
         result.put("success", true);
+        startupRunner.loadData();
         return result;
     }
 
@@ -51,6 +56,7 @@ public class LinkAdminController {
         for (String anIdsStr : idsStr) {
             linkService.delete(Integer.parseInt(anIdsStr));
         }
+        startupRunner.loadData();
         result.put("success", true);
         return result;
     }

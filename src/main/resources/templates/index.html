@@ -4,8 +4,94 @@
     <meta charset="UTF-8"/>
     <!--/*@thymesVar id="title" type="com.vole.film.controller.IndexController"*/-->
     <title th:text="${title}+'-电影推酷网'">Title</title>
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/static/css/film.css"/>
 </head>
-<body>
+<body class="container">
 
+<div class="row">
+    <div th:include="common/head::#h"></div>
+</div>
+
+<div class="row">
+    <div th:include="common/menu::#m"></div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-8">
+        <div th:include="${mainPage}::${mainPageKey}"></div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="data_list">
+            <div class="data_list_title">
+                <img src="/static/images/dynamic_icon.png" />
+                最新电影动态
+            </div>
+            <div class="datas">
+                <ul>
+                    <li th:each="newestInfo:${application.newestInfoList}"><span><a target="_blank" th:href="'/film/'+${newestInfo.film.id}" th:title="${newestInfo.film.name+' -> '+newestInfo.info}" th:text="${newestInfo.film.name+' -> '+newestInfo.info}"></a></span></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="data_list">
+            <div class="data_list_title">
+                <img src="/static/images/hot_icon.png" />
+                最新热门电影推荐
+            </div>
+            <div class="datas">
+                <ul>
+                    <li th:each="newestHotFilm:${application.newestHotFilmList}"><span><a target="_blank" th:href="'/film/'+${newestHotFilm.id}" th:title="${newestHotFilm.name}" th:text="${newestHotFilm.name}"></a></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="data_list">
+            <div class="data_list_title">
+                <img src="/static/images/website_icon.png" />
+                最新电影网址收录
+            </div>
+            <div class="datas">
+                <ul>
+                    <li th:each="newestWebSite:${application.newestWebSiteList}"><span><a target="_blank" th:href="${newestWebSite.url}" th:title="${newestWebSite.name}" th:text="${newestWebSite.name}"></a></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="data_list">
+            <div class="data_list_title">
+                <img src="/static/images/film_icon.png" />
+                最新电影收录
+            </div>
+            <div class="datas">
+                <ul>
+                    <li th:each="newestFilm:${application.newestFilmList}"><span><a target="_blank" th:href="'/film/'+${newestFilm.id}" th:title="${newestFilm.name}" th:text="${newestFilm.name}"></a></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="data_list">
+            <div class="data_list_title">
+                <img src="/static/images/link_icon.png" />
+                友情链接
+            </div>
+            <div class="datas">
+                <ul>
+                    <li th:each="link:${application.linkList}"><span><a target="_blank" th:href="${link.url}" th:title="${link.name}" th:text="${link.name}"></a></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row">
+    <div th:include="common/foot::#f"></div>
+</div>
 </body>
 </html>
