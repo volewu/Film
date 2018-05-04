@@ -7,7 +7,7 @@
 
 * IDEA
 * JDK 8
-* MySQL（[数据库链接：db_film](https://github.com/volewu/Flim/blob/master/db_cms.sql)）
+* MySQL（[数据库链接：db_film](https://github.com/volewu/Film/blob/master/db_cms.sql)）
 
 #### 三、项目技术
 
@@ -23,7 +23,7 @@
 
 * 运行截图
 
-  ​
+  ![film](https://github.com/volewu/Film/blob/master/preview/film.gif?raw=true)
 
   ​
 
