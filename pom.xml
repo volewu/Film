@@ -68,6 +68,7 @@
 			<!--<scope>provided</scope>-->
 		<!--</dependency>-->
 
+		<!-- 开发模式，项目实时运行-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>

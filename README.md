@@ -1,9 +1,33 @@
 # Film
-#### 一、简介：
+#### 一、项目简介：
 
-基于 Java  的电影聚合系统，采用 Springboot , MySQL , Thymeleaf .....(正在召唤ing.....)
+> 一个采用 SpringBoot 架构的电影聚合 JavaWeb 项目，适用于 SpringBoot 练手项目
 
-#### 二、姿势点
+#### 二、运行环境
+
+* IDEA
+* JDK 8
+* MySQL（[数据库链接：db_film](https://github.com/volewu/Flim/blob/master/db_cms.sql)）
+
+#### 三、项目技术
+
+* Spring && Spring Boot && Spring Sectuity 
+
+* Spring Data Jpa
+
+* EsayUI + Bootstrap
+
+* thymeleaf
+
+* ckeditor
+
+* 运行截图
+
+  ​
+
+  ​
+
+#### 四、姿势点
 
 ##### 1、 SpringSecurity 中得到登入的用户名
 
