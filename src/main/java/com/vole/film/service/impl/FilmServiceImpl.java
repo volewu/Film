@@ -56,7 +56,7 @@ public class FilmServiceImpl implements FilmService {
             if (film != null) {
                 if (StringUtil.isNotEmpty(film.getName()))
                     predicate.getExpressions().add(cb.like(root.get("name"), "%" + film.getName().trim() + "%"));
-                if(film.getHot()!=null && film.getHot()==1){
+                if (film.getHot() != null && film.getHot() == 1) {
                     predicate.getExpressions().add(cb.equal(root.get("hot"), 1));
                 }
             }
@@ -72,5 +72,20 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public Film findById(Integer id) {
         return filmRepository.findOne(id);
+    }
+
+    @Override
+    public Film getLastFilm(Integer id) {
+        return filmRepository.getLastFilm(id);
+    }
+
+    @Override
+    public Film getNextFilm(Integer id) {
+        return filmRepository.getNextFilm(id);
+    }
+
+    @Override
+    public List<Film> randomList(Integer n) {
+        return filmRepository.randomList(n);
     }
 }

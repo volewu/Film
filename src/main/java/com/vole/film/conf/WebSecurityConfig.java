@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().disable().headers().disable()//关闭跨站、跨域、请求头
                 .authorizeRequests()
-                .antMatchers("/", "/static/**","/film/**").permitAll() // 配置不需要身份认证的请求地址
+                .antMatchers("/", "/static/**", "/film/**", "/webSite/**", "/webSiteInfo/**", "/aboutMe").permitAll() // 配置不需要身份认证的请求地址
                 .anyRequest().authenticated() // 其他所有访问路径需要身份认证
                 .and()
                 .formLogin()
@@ -45,6 +45,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login")
                 .permitAll();
     }
-
 
 }

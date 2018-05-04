@@ -11,13 +11,16 @@
 th:text="${#httpServletRequest.remoteUser}"
 ```
 
-##### 2、thymeleaf 中不扫描该注释中的代码
+##### 2、thymeleaf 问题
 
 ```html
 /*<![CDATA[*/
-
+中不扫描该注释中的代码
 
  /*]]>*/
+
+//时间转换
+${#dates.format(film.publishDate,'yyyy-MM-dd HH:mm:ss')}
 ```
 
 ##### 3、jpa 中格式化时间 [CustomDateSerializer.java](https://github.com/volewu/Film/blob/master/src/main/java/com/vole/film/util/CustomDateSerializer.java)
@@ -81,5 +84,33 @@ $(document).ready(function(){
 
         });
 </script>
+```
+
+##### 7. SQL 语法
+
+```java
+/**
+     * 根据 id 获取上一个数据
+     * @param id
+     * @return
+     */
+    @Query(value = "SELECT * FROM t_film where id <?1 ORDER BY id DESC limit 1", nativeQuery = true)
+    Film getLastFilm(Integer id);
+
+    /**
+     * 根据 id 获取下一个数据
+     * @param id
+     * @return
+     */
+    @Query(value = "SELECT * FROM t_film where id >?1 ORDER BY id ASC limit 1", nativeQuery = true)
+    Film getNextFilm(Integer id);
+
+    /**
+     * 随机取几条数据
+     * @param n
+     * @return
+     */
+    @Query(value = "SELECT * FROM t_film ORDER BY rand() limit ?1",nativeQuery = true)
+    List<Film> randomList(Integer n);
 ```
 

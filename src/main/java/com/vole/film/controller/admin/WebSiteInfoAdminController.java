@@ -22,7 +22,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/admin/webSiteInfo")
-public class WebSiteInfoController {
+public class WebSiteInfoAdminController {
 
     @Resource
     private WebSiteInfoService webSiteInfoService;

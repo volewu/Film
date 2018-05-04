@@ -1,0 +1,39 @@
+<meta charset="UTF-8"/>
+<div id="f">
+	<div class="data_list">
+		<div class="data_list_title">
+		<img src="/static/images/list_icon.png"/>
+		电影网站动态信息列表</div>
+		<div>
+			<table class="table">
+		      <thead>
+		        <tr>
+		          <th>#</th>
+		          <th>发布日期</th>
+		          <th>动态信息</th>
+		          <th>来源于</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+	        	<tr th:each="webSiteInfo,webSiteInfoStat:${webSiteInfoList}">
+		          <th scope="row" th:text="${webSiteInfoStat.index+1}"></th>
+		          <td th:text="${#dates.format(webSiteInfo.publishDate,'yyyy-MM-dd')}"></td>
+		          <td>
+		          	<a target="_blank" th:href="${webSiteInfo.url}" th:title="${webSiteInfo.info}" th:text="${webSiteInfo.info}"></a>
+		          </td>
+		          <td>
+		        	  <a target="_blank" th:href="${webSiteInfo.webSite.url}" th:title="${webSiteInfo.webSite.name}" th:text="${webSiteInfo.webSite.name}"></a>
+		          </td>
+		        </tr>
+	       </tbody>
+	    </table>
+		</div>
+	
+	<div>
+		<nav>
+		  <ul class="pagination pagination-sm" th:utext="${pageCode}">
+		  </ul>
+		</nav>
+	 </div>
+</div>
+</div>

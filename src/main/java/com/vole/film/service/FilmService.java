@@ -13,12 +13,14 @@ public interface FilmService {
 
     /**
      * 添加或者修改电影
+     *
      * @param film
      */
     void save(Film film);
 
     /**
-     *分页查询电影信息
+     * 分页查询电影信息
+     *
      * @param film
      * @param page
      * @param pageSize
@@ -43,5 +45,23 @@ public interface FilmService {
      * @param id
      */
     Film findById(Integer id);
+
+    /**
+     * 根据 id 获取上一个数据
+     * @param id
+     */
+    Film getLastFilm(Integer id);
+
+    /**
+     * 根据 id 获取下一个数据
+     * @param id
+     */
+    Film getNextFilm(Integer id);
+
+    /**
+     * 随机取几条数据
+     * @return
+     */
+    List<Film> randomList(Integer n);
 
 }
